@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Service
-public class JobServiveImpl implements JobService {
+public class JobServiceImpl implements JobService {
     private List<Job> jobs = new ArrayList<>();
     private long nextId = 1L;
     @Override
