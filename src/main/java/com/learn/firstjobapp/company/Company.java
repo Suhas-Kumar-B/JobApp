@@ -1,7 +1,9 @@
 package com.learn.firstjobapp.company;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.learn.firstjobapp.job.Job;
+import com.learn.firstjobapp.review.Review;
 import jakarta.persistence.*;
 
 import java.util.List;
@@ -18,10 +20,17 @@ public class Company {
     @OneToMany(mappedBy = "company")
     private List<Job> jobs;
 
-    /*
-    Review Pending
-    private List<Reviews> reviews;
-     */
+    @OneToMany(mappedBy = "company", cascade = CascadeType.ALL)
+    @JsonManagedReference
+    private List<Review> reviews;
+
+    public List<Review> getReviews() {
+        return reviews;
+    }
+
+    public void setReviews(List<Review> reviews) {
+        this.reviews = reviews;
+    }
 
     public Company() {
     }
