@@ -1,7 +1,7 @@
 package com.learn.firstjobapp.job.impl;
 
 import com.learn.firstjobapp.job.Job;
-import com.learn.firstjobapp.job.JobRespository;
+import com.learn.firstjobapp.job.JobRepository;
 import com.learn.firstjobapp.job.JobService;
 import org.springframework.stereotype.Service;
 import java.util.List;
@@ -11,31 +11,31 @@ import java.util.Optional;
 public class JobServiceImpl implements JobService {
     /*private List<Job> jobs = new ArrayList<>();
     The above code is only for array storage method only, lets move on with Jpa and make this code persistant*/
-    private final JobRespository jobRespository;
+    private final JobRepository jobRepository;
 
-    public JobServiceImpl(JobRespository jobRespository) {
-        this.jobRespository = jobRespository;
+    public JobServiceImpl(JobRepository jobRepository) {
+        this.jobRepository = jobRepository;
     }
 
     @Override
     public List<Job> findAll() {
-        return jobRespository.findAll();
+        return jobRepository.findAll();
     }
 
     @Override
     public void createJob(Job job) {
-        jobRespository.save(job);
+        jobRepository.save(job);
     }
 
     @Override
     public Job getJobById(long id) {
-        return jobRespository.findById(id).orElse(null);
+        return jobRepository.findById(id).orElse(null);
     }
 
     @Override
     public boolean deleteJobById(long id) {
         try {
-            jobRespository.deleteById(id);
+            jobRepository.deleteById(id);
             return true;
         } catch (Exception e) {
             return false;
@@ -45,7 +45,7 @@ public class JobServiceImpl implements JobService {
 
     @Override
     public boolean updateJob(long id, Job updatedJob) {
-        Optional<Job> jobOptional = jobRespository.findById(id);
+        Optional<Job> jobOptional = jobRepository.findById(id);
         if (jobOptional.isPresent()) {
             Job job = jobOptional.get();
             job.setTitle(updatedJob.getTitle());
@@ -53,7 +53,7 @@ public class JobServiceImpl implements JobService {
             job.setMinSalary(updatedJob.getMinSalary());
             job.setMaxSalary(updatedJob.getMaxSalary());
             job.setLocation(updatedJob.getLocation());
-            jobRespository.save(job); // this line is essential
+            jobRepository.save(job); // this line is essential
             return true;
         }
 
